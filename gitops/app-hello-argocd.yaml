@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-argocd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/laurenssvg/test-k8s-helm.git"
+    targetRevision: master
+    path: hello-argocd
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: hello-argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
